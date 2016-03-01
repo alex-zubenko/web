@@ -4,6 +4,6 @@ def app(environ, start_response):
     print(query)
     response_body = "Index"
     status = "200 OK"
-    response_headers = [("Content-Length", str(len(response_body)))]
+    response_headers = [("Content-Type", "text/plain"),("Content-Length", str(len(response_body)))]
     start_response(status, response_headers)
     return [response_body]

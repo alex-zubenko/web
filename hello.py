@@ -1,4 +1,4 @@
-def application(environ, start_response):
+def app(environ, start_response):
     path = environ.get('PATH_INFO')
     query = environ.get('QUERY_STRING')
     print(query)

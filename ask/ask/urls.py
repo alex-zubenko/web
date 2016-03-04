@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
+from qa.views import test
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -9,11 +10,11 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
 #    url(r'^admin/', include(admin.site.urls),name='home'),
-    url(r'^$', include('aq.view.test')),
-#    url(r'^login/$',include('qa.views.test')),
-#    url(r'^signup/?$',include('qa.views.test')),
-#    url(r'^question/(\d+)',include('qa.views.test')),
-#    url(r'^ask/$',include('qa.views.test')),
-#    url(r'^popular/',include('qa.views.test')),
-#    url(r'^new/$',include('qa.views.test')),    
+    url(r'^$', test),
+    url(r'^login/$', test),
+    url(r'^signup/?$', test),
+    url(r'^question/(\d+)',test),
+    url(r'^ask/$',test),
+    url(r'^popular/',test),
+    url(r'^new/$',test),    
 )

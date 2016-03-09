@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
 #    url(r'^admin/', include(admin.site.urls),name='home'),
-    url(r'^(\?page=\d\d?)?$', home),
+    url(r'^$', home),
     url(r'^login/$', test),
     url(r'^signup/?$', test),
     url(r'^question/(\d+)',popular),

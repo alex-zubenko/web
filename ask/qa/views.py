@@ -13,12 +13,11 @@ def home(request):
 	paginator = Paginator(posts, limit)
 	paginator.baseUrl = '/?page='
 	page = paginator.page(page)
-	return HttpResponse(posts[0].title)
-	#return render(request, 'home.html', {
-	#	posts:	posts,
-		#posts:			page.object_list,
-		#paginator:	paginator, page: page,
-	#})
+	return render(request, 'home.html', {
+		posts:	posts,
+		posts:			page.object_list,
+		paginator:	paginator, page: page,
+	})
 
 
 def popular(request, *args, **kwargs):

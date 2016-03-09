@@ -32,4 +32,7 @@ def popular(request, *args, **kwargs):
 	})
 
 def question(request, *args, **kwargs):
-	return HttpResponse('OK')
+	post = Qestion.objects.filter(id=request.GET.get('id'))
+	return render(request, 'home.html', {
+		'post':	post,
+	})

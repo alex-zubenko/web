@@ -8,5 +8,5 @@ class AskForm(ModelForm):
 
 class AnswerForm(ModelForm):
 	class Meta:
-		model = AnswerForm
+		model = Answer
 		fields = ['text', 'question']

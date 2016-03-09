@@ -44,7 +44,8 @@ def question(request, id):
 
 def add_question(request):
 	if request.method == 'POST':
-		#form = AskForm(request.POST)
+		form = AskForm(request.POST)
+		form.save()
 		return HttpResponseRedirect('/question/' + request.POST[0])
 	else:
 		form = AskForm()
@@ -54,7 +55,8 @@ def add_question(request):
 
 def add_answer(request):
 	if request.method == 'POST':
-		#form = AskForm(request.POST)
+		form = AskForm(request.POST)
+		form.save()
 		return HttpResponseRedirect('/answer/' + request.POST[0])
 	else:
 		form = AskForm()

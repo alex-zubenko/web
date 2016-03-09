@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect
 from qa.forms import AskForm, AnswerForm
 from django.views.decorators.csrf import csrf_protect
 
-def test(request, *args, **kwargs):
-	return HttpResponse('OK')
+#def test(request, *args, **kwargs):
+#	return HttpResponse('OK')
 
 def home(request):
 	posts = Question.objects.order_by("-id")
@@ -49,7 +49,6 @@ def add_question(request):
         form = AskForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            #post.author = request.user
             post.added_at = timezone.now()
             post.save()
             return redirect('/question/', pk=post.pk)
@@ -69,27 +68,3 @@ def add_answer(request):
     else:
         form = AnswerForm()
     return render(request, 'add_answer.html', {'form': form})
-
-"""
-def add_question(request):
-	if request.method == 'POST':
-		form = AskForm(request.POST)
-		form.save()
-		return HttpResponseRedirect('/question/' + request.POST[0])
-	else:
-		form = AskForm()
-	return render(request, 'add_question.html', {
-		'form': form
-	})
-
-def add_answer(request):
-	if request.method == 'POST':
-		form = AskForm(request.POST)
-		form.save()
-		return HttpResponseRedirect('/answer/' + request.POST[0])
-	else:
-		form = AskForm()
-	return render(request, 'add_answer.html', {
-		'form': form
-	})
-"""

@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 
 def home(request):
 	return HttpResponse('OKI')
+	"""
 	posts = Question.objects
 	limit = request.GET.get('limit', 10)
 	page = request.GET.get('page', 1)
@@ -19,6 +20,7 @@ def home(request):
 		paginator:	paginator,
 		page:				page,
 	})
+	"""
 
 def popular(request, *args, **kwargs):
 	return HttpResponse('OK')

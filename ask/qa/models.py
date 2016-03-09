@@ -8,6 +8,7 @@ class Question(models.Model):
 	rating = models.IntegerField(null=True)
 	author = models.ForeignKey(User, null=False, on_delete=models.DO_NOTHING, related_name="question_author")
 	likes = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING, related_name="question_likes")
+	answer = models.ForeignKey(Answer, null=False,on_delete=models.DO_NOTHING, related_name="answer_ref")
 	def __unicode_(self):
 		return self.title
 

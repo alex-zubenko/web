@@ -7,7 +7,7 @@ def test(request, *args, **kwargs):
 	return HttpResponse('OK')
 
 def home(request):
-	posts = Question.objects.all()
+	posts = Question.objects.order_by("-id")
 	limit = request.GET.get('limit', 10)
 	page = request.GET.get('page', 1)
 	paginator = Paginator(posts, limit)

@@ -13,6 +13,7 @@ def home(request):
 	paginator = Paginator(posts, limit)
 	paginator.baseUrl = '/?page='
 	page = paginator.page(page)
+	return page
 	return render(request, 'home.html', {
 		posts:			page.object_list,
 		paginator:	paginator,

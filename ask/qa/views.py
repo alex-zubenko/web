@@ -51,7 +51,7 @@ def add_question(request):
             post = form.save(commit=False)
             post.added_at = timezone.now()
             post.save()
-            return redirect('/question/', pk=post.pk)
+            return HttpResponseRedirect('/question/' + request.POST[0])
     else:
         form = AskForm()
     return render(request, 'add_question.html', {'form': form})

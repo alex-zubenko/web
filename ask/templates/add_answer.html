@@ -1,3 +1,12 @@
-<form method="POST" class="post-form">{% csrf_token %} {{ form.as_p }}
-    <button type="submit" class="save btn btn-default">Save</button>
-</form>
+{% for e in form.non_field_errors %}
+	<form action="/ask/" class="form-horizontal" method="POST">
+		{% csrf_token %}
+		{% for field in form %}
+			<div class="form-component {% if field.errors%}error{% endif %}">
+				<label>{{field.label}}</label>
+				{{field}}
+			</div>
+		{% endfor %}
+		<button type="submit" class="save btn btn-default">Save</button>
+	</form>
+{% endfor %}

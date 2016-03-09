@@ -31,8 +31,8 @@ def popular(request, *args, **kwargs):
 		'paginator':	paginator, 'page': page,
 	})
 
-def question(request, *args, **kwargs):
-	post = Question.objects.filter(id=request.GET.get('id'))
+def question(request, id):
+	post = Question.objects.filter(id=id)
 	return HttpResponse(post.title)
 	#return render(request, 'home.html', {
 		#'posts':	post,

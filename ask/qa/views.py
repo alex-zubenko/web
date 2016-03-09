@@ -38,5 +38,5 @@ def question(request, id):
 	#answers = Answer.question_set.all()
 	return render(request, 'question.html', {
 		'post':	post,
-		'answers': post.answer.all(),
+		'answers': post.answer.all()[:],
 	})

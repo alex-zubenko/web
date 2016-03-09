@@ -37,6 +37,6 @@ def question(request, id):
 	post = get_object_or_404(Question, id=id)
 	#answers = Answer.question_set.all()
 	return render(request, 'question.html', {
-		'post':	post.question.all(),
-		'answers': answers,
+		'post':	post,
+		'answers': post.answer.all(),
 	})

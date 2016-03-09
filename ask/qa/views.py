@@ -7,15 +7,17 @@ def test(request, *args, **kwargs):
 	return HttpResponse('OK')
 
 def home(request):
-	questions = Question.objects.order_by("-id")
+	posts = Question.objects.order_by("-id")
 	limit = request.GET.get('limit', 10)
 	page = request.GET.get('page', 1)
-	paginator = Paginator(questions, limit)
+	paginator = Paginator(posts, limit)
 	paginator.baseUrl = '/?page='
 	page = paginator.page(page)
-	return render(request, 'home.html', {
-		posts:			page.object_list,
-		paginator:	paginator, page: page,
+	return HttpResponse(posts[0].title)
+	#return render(request, 'home.html', {
+	#	posts:	posts,
+		#posts:			page.object_list,
+		#paginator:	paginator, page: page,
 	})
 
 

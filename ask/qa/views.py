@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from qa.models import Question
+from qa.models import Question, Answer
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')

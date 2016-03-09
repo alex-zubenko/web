@@ -5,7 +5,7 @@ class Question(models.Model):
 	title = models.CharField(max_length=255)
 	text = models.TextField()
 	added_at = models.DateField(null=True)
-	rating = models.IntegerField()
+	rating = models.IntegerField(null=True)
 	author = models.ForeignKey(User, null=False, on_delete=models.DO_NOTHING, related_name="question_author")
 	likes = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING, related_name="question_likes")
 	def __unicode_(self):
@@ -13,6 +13,6 @@ class Question(models.Model):
 
 class Answer(models.Model):
 	text = models.TextField()
-	added_at = models.DateField(not=True)
+	added_at = models.DateField(null=True)
 	question = models.TextField()
 	author = models.ForeignKey(User, null=False, on_delete=models.DO_NOTHING)

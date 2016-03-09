@@ -2,9 +2,9 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 from qa.views import test
-from qa.views import home
-from qa.views import popular
-from qa.views import question
+#from qa.views import home
+#from qa.views import popular
+#from qa.views import question
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
 #    url(r'^admin/', include(admin.site.urls),name='home'),
-    url(r'^\w+$', test),
+    url(r'^(.+)$', test),
 #    url(r'^login/$', test),
 #    url(r'^signup/?$', test),
 #    url(r'^question/(\d+)',popular),

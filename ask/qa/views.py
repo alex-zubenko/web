@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from qa.models import Question, Answer
 from django.http import HttpResponse
 from django.core.paginator import Paginator
+from qa.models import Question
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
@@ -14,7 +14,7 @@ def home(request):
 	paginator.baseUrl = '/?page='
 	page = paginator.page(page)
 	return render(request, 'home.html', {
-		posts:			page.object_list,
+		posts:			posts,
 		paginator:	paginator,
 		page:				page,
 	})

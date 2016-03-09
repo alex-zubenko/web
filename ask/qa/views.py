@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Question
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 
@@ -13,7 +13,6 @@ def home(request):
 	paginator = Paginator(posts, limit)
 	paginator.baseUrl = '/?page='
 	page = paginator.page(page)
-	return HttpResponse('OK')
 	return render(request, 'home_list.html', {
 		posts:			page.object_list,
 		paginator:	paginator,

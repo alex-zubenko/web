@@ -4,7 +4,8 @@ from django.contrib import admin
 #from qa.views import test
 from qa.views import home
 from qa.views import popular
-from qa.views import question
+from qa.views import question, add_question, add_answer
+
 admin.autodiscover()
 
 urlpatterns = patterns('',

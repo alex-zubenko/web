@@ -8,7 +8,6 @@ def test(request, *args, **kwargs):
 
 
 def home(request):
-	return HttpResponse('OK')
 	posts = Question.objects.filter()
 	limit = request.GET.get('limit', 10)
 	page = request.GET.get('page', 1)

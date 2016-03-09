@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
 from django.http import HttpResponse
-#from django.core.paginator import Paginator
+from django.core.paginator import Paginator
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
 
-"""
+
 def home(request):
 	return HttpResponse('OK')
 	posts = Question.objects.filter()
@@ -26,4 +26,3 @@ def popular(request, *args, **kwargs):
 
 def question(request, *args, **kwargs):
 	return HttpResponse('OK')
-"""

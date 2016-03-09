@@ -8,8 +8,8 @@ def test(request, *args, **kwargs):
 
 	def home(request):
 	posts = Question.objects
-	limit = request.Get.get('limit', 10)
-	page = reauest.GET.get('page', 1)
+	limit = request.GET.get('limit', 10)
+	page = request.GET.get('page', 1)
 	paginator = Paginator(posts, limit)
 	paginator.baseUrl = '/?page='
 	page = paginator.page(page)

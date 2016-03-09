@@ -40,3 +40,21 @@ def question(request, id):
 		'post':	post,
 		'answers': answers,
 	})
+
+def add_question(request):
+	if request.method == 'POST':
+		form = AskForm(request.POST)
+	else:
+		form = AskForm()
+	return render(request, 'add_question.html', {
+		'form': form
+	})
+
+def add_answer(request):
+	if request.method == 'POST':
+		form = AskForm(request.POST)
+	else:
+		form = AskForm()
+	return render(request, 'add_answer.html', {
+		'form': form
+	})

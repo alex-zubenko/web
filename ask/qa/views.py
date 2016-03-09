@@ -20,7 +20,16 @@ def home(request):
 
 
 def popular(request, *args, **kwargs):
-	return HttpResponse('OK')
+	posts = Question.objects.order_by("-rating")
+	limit = request.GET.get('limit', 10)
+	page = request.GET.get('page', 1)
+	paginator = Paginator(posts, limit)
+	paginator.baseUrl = '/?page='
+	page = paginator.page(page)
+	return render(request, 'home.html', {
+		'posts':	page.object_list,
+		'paginator':	paginator, 'page': page,
+	})
 
 def question(request, *args, **kwargs):
 	return HttpResponse('OK')

@@ -3,6 +3,7 @@ from django.views.decorators.http import require_GET
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from qa.models import Question, Answer
+from django.http import HttpResponseRedirect
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
@@ -43,7 +44,8 @@ def question(request, id):
 
 def add_question(request):
 	if request.method == 'POST':
-		form = AskForm(request.POST)
+		#form = AskForm(request.POST)
+		return HttpResponseRedirect('/question/' + request.POST[0])
 	else:
 		form = AskForm()
 	return render(request, 'add_question.html', {
@@ -52,7 +54,8 @@ def add_question(request):
 
 def add_answer(request):
 	if request.method == 'POST':
-		form = AskForm(request.POST)
+		#form = AskForm(request.POST)
+		return HttpResponseRedirect('/answer/' + request.POST[0])
 	else:
 		form = AskForm()
 	return render(request, 'add_answer.html', {

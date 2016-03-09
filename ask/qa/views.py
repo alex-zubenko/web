@@ -18,7 +18,7 @@ def home(request):
 	#	posts:	posts,
 		#posts:			page.object_list,
 		#paginator:	paginator, page: page,
-	})
+	#})
 
 
 def popular(request, *args, **kwargs):

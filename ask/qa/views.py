@@ -33,6 +33,7 @@ def popular(request, *args, **kwargs):
 
 def question(request, *args, **kwargs):
 	post = Question.objects.filter(id=request.GET.get('id'))
-	return render(request, 'home.html', {
-		'posts':	post,
-	})
+	return HttpResponse(post.title)
+	#return render(request, 'home.html', {
+		#'posts':	post,
+	#})

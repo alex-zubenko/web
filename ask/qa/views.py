@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 #	return HttpResponse('OK')
 
 def home(request):
+	return HttpResponse('OKI')
 	posts = Question.objects
 	limit = request.GET.get('limit', 10)
 	page = request.GET.get('page', 1)

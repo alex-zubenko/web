@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from qa.models import Question, Answer
 from django.http import HttpResponseRedirect
+from qa.forms import AskForm, AnswerForm
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')

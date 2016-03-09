@@ -1,5 +1,5 @@
-from django import forms
 from django import ModelForm
+from qa.models import Question, Answer
 
 class AskForm(ModelForm):
 	class Meta:

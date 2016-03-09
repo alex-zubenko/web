@@ -1,0 +1,7 @@
+<h1>{{ post.title }}</h1>
+<div class="content">{{ post.text }}</div>
+<div class="answers">
+	{% for answer in answers %}
+	<div class="item">{{answer.text}}</div>
+	{% endfor %}
+</div>

@@ -35,7 +35,8 @@ def popular(request, *args, **kwargs):
 @require_GET
 def question(request, id):
 	post = get_object_or_404(Question, id=id)
-
-	return render(request, 'home.html', {
-		'posts':	post,
+	answers = answer.question_set.all()
+	return render(request, 'question.html', {
+		'post':	post,
+		'answers': answers,
 	})

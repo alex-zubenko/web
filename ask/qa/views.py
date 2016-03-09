@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-def test(request):
+def home(request):
 	posts = Question.objects
 	limit = request.Get.get('limit', 10)
 	page = reauest.GET.get('page', 1)
@@ -15,7 +15,7 @@ def test(request):
 		page:				page,
 	})
 
-def home(request, *args, **kwargs):
+def test(request, *args, **kwargs):
 	return HttpResponse('OK')
 
 def popular(request, *args, **kwargs):

@@ -14,8 +14,7 @@ def home(request):
 	paginator.baseUrl = '/?page='
 	page = paginator.page(page)
 	return render(request, 'home.html', {
-		posts:	posts,
-		posts:			page.object_list,
+		posts:	page.object_list,
 		paginator:	paginator, page: page,
 	})
 

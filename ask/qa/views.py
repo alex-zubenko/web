@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_GET
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from qa.models import Question
@@ -31,9 +32,10 @@ def popular(request, *args, **kwargs):
 		'paginator':	paginator, 'page': page,
 	})
 
+@require_GET
 def question(request, id):
-	post = Question.objects.filter(id=id)
-	return HttpResponse(post)
-	#return render(request, 'home.html', {
-		#'posts':	post,
-	#})
+	post = get_object_or_404(Question, id=id)
+
+	return render(request, 'home.html', {
+		'posts':	post,
+	})

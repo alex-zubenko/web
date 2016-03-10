@@ -36,22 +36,15 @@ def popular(request, *args, **kwargs):
 		'paginator':	paginator, 'page': page,
 	})
 
-@require_GET
-def question(request, id):
-	post = get_object_or_404(Question, id=id)
-	answers = Answer.objects.filter(question=id)
-	return render(request, 'question.html', {
-		'post':	post,
-		'answers': answers,
-	})
+
 
 def add_question(request):
     if request.method == "POST":
         form = AskForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.added_at = timezone.now()
+            post = form.save()
             post.save()
+            return redirect('/question/', pk=post.id)
             return HttpResponseRedirect(reverse('question', args=(post.id,)))
     else:
         form = AskForm()
@@ -69,3 +62,12 @@ def add_answer(request):
     else:
         form = AnswerForm()
     return render(request, 'add_answer.html', {'form': form})
+
+@require_GET
+def question(request, id):
+	post = get_object_or_404(Question, id=id)
+	answers = Answer.objects.filter(question=id)
+	return render(request, 'question.html', {
+		'post':	post,
+		'answers': answers,
+	})

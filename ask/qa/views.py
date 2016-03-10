@@ -57,7 +57,7 @@ def add_answer(request):
             	question = Question.objects.get(id=post.question)
             	url = question.get_url()
             	return HttpResponseRedirect(url)
-        else:
+    else:
             form = AnswerForm()
     return render(request, 'add_answer.html', {'form': form})
 

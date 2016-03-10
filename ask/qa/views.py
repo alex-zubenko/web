@@ -42,7 +42,7 @@ def add_question(request):
     if request.method == "POST":
         form = AskForm(request.POST)
         post = form.save()
-        return HttpResponseRedirect('/question/' + post.id)
+        return HttpResponseRedirect(reverse('question', kwargs={'id': post.id}))
     else:
         form = AskForm()
     return render(request, 'add_question.html', {'form': form})

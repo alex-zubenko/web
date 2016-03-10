@@ -55,7 +55,8 @@ def add_answer(request):
             #post.author = request.user
             post.added_at = timezone.now()
             post.save()
-            return redirect('/question/', pk=post.question)
+            url = post.get_url()
+            return redirect(url)
     else:
         form = AnswerForm()
     return render(request, 'add_answer.html', {'form': form})

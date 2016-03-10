@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from qa.models import Question, Answer, myUser
+from qa.models import Question, Answer
 from django.http import HttpResponseRedirect
 from qa.forms import AskForm, AnswerForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
@@ -74,10 +74,7 @@ def question(request, id):
 
 
 
-
-def login(request, *args, **kwargs):
-	return HttpResponse('OK')
-
+"""
 def register(request):
     if request.method == 'POST':
         user_form = RegisterForm(data=request.POST)
@@ -115,3 +112,31 @@ def login(request):
     else:
     	#form = LoginForm()
         return render(request, 'login.html', {})
+
+def do_login(login, password):
+	try:
+		user = User.objects.get(username=login)
+	except User.DoesNotExist:
+		return None
+	#hashed_pass = salt_and_hash(password)
+	#if user.password != hashed_pass:
+	#	return None
+	session = Session()
+	session.key = generate_longradom_key()
+	session.user = user
+	session.expires = datetime.now() + timedelta(days = 5)
+	session.save()
+	return session.key
+"""
+
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
+
+class RegisterFormView(FormView):
+    form_class = UserCreationForm
+    success_url = "/"
+    template_name = "register.html"
+
+    def form_valid(self, form):
+        form.save()
+        return super(RegisterFormView, self).form_valid(form)

@@ -131,23 +131,17 @@ def do_login(login, password):
 
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
-class RegisterFormView(FormView):
-    form_class = UserCreationForm
-    success_url = "/"
-    template_name = "register.html"
-
-    class Meta:
-            model = User
-            fields = ("username", "email", "password1", "password2")
-
-        def save(self, commit=True):
-            user = super(UserCreateForm, self).save(commit=False)
-            user.email = self.cleaned_data["email"]
-            if commit:
-                user.save()
-            return user
-
-    def form_valid(self, form):
-        form.save()
-        return super(RegisterFormView, self).form_valid(form)
+class RegisterFormView(UserCreationForm):
+	email = forms.EmailField(label = "Email")
+	fullname = forms.CharField(label = "Full name")
+	class Meta:
+		model = User
+		fields = ("username", "email", )
+	def save(self, commit=True):
+	        user = super(RegisterForm, self).save(commit=False)
+	        user.email = self.cleaned_data["email"]
+	        if commit:
+	            user.save()
+	        return user

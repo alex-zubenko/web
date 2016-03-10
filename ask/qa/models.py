@@ -20,3 +20,20 @@ class Answer(models.Model):
 	author = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
 	def __unicode__(self):
 		return self.text
+
+
+class myUser(User):
+	def do_login(login, password):
+		try:
+			user = User.objects.get(login=login)
+		except User.DoesNotExist:
+			return None
+		hashed_pass = salt_and_hash(password)
+		if user.password != hashed_pass:
+			return None
+		session = Session()
+		session.key = generate_longradom_key()
+		session.user = user
+		session.expires = datetime.now() + timedelta(days = 5)
+		session.save()
+		return session.key

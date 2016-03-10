@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from qa.models import Question, Answer
+from qa.models import Question, Answer, myUser
 from django.http import HttpResponseRedirect
 from qa.forms import AskForm, AnswerForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
@@ -85,7 +85,13 @@ def register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            return HttpResponseRedirect('/')
+            sessid = do_login(user.username,user.password)
+            if sessid:
+            	response = HttpResponseRedirect('/')
+            	response.set_cookie('sessid',sessid,
+            		domain="site.com", httponly=True,
+            		expires=datetime.now()+timedelta(days=5))
+            return response
         else:
             print user_form.errors
     else:
@@ -99,7 +105,7 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
-                login(request, user)
+                login(request)
                 return HttpResponseRedirect('/')
             else:
                 return HttpResponse("Your account is disabled.")
@@ -107,4 +113,5 @@ def login(request):
             print "Invalid login details: {0}, {1}".format(username, password)
             return HttpResponse("Invalid login details supplied.")
     else:
+    	#form = LoginForm()
         return render(request, 'login.html', {})

@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from qa.models import Question, Answer
+from django.contrib.auth.models import User
 
 class AskForm(ModelForm):
 	class Meta:
@@ -13,12 +14,14 @@ class AnswerForm(ModelForm):
 		fields = ['text', 'question']
 
 class RegisterForm(ModelForm):
-	class Meta:
-		model = User
-		#fields = ['name', 'email', 'password']
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
 
 class LoginForm(ModelForm):
 	class Meta:
 		model = User
-		fields = ['name', 'password']
+		fields = ['username', 'password']
 

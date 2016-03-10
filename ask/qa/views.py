@@ -1,10 +1,11 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from qa.models import Question, Answer
 from django.http import HttpResponseRedirect
-from qa.forms import AskForm, AnswerForm
+from qa.forms import AskForm, AnswerForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
 
 
@@ -70,15 +71,40 @@ def question(request, id):
 		'answers': answers,
 	})
 
-def register(request, *args, **kwargs):
-	if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-        	user = form.save()
-        	return HttpResponseRedirect('/')
-    else:
-        form = AskForm()
-    return render(request, 'add_question.html', {'form': form})
+
+
+
 
 def login(request, *args, **kwargs):
 	return HttpResponse('OK')
+
+def register(request):
+    if request.method == 'POST':
+        user_form = RegisterForm(data=request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            return HttpResponseRedirect('/')
+        else:
+            print user_form.errors
+    else:
+        user_form = RegisterForm()
+    return render( request, 'register.html', {'form': user_form})
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                return HttpResponse("Your account is disabled.")
+        else:
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'login.html', {})

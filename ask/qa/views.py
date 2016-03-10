@@ -61,7 +61,7 @@ def add_answer(request):
             form = AnswerForm()
     return render(request, 'add_answer.html', {'form': form})
 
-@require_GET
+#@require_GET
 def question(request, id):
 	post = get_object_or_404(Question, id=id)
 	answers = Answer.objects.filter(question=id)

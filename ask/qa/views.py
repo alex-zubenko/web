@@ -54,7 +54,7 @@ def add_answer(request):
             form = AnswerForm(request.POST)
             if form.is_valid():
             	post = form.save()
-            	question = Question.objects.get(id=post.question)
+            	question = Question.objects.get(id=post.question.id)
             	url = question.get_url()
             	return HttpResponseRedirect(url)
     else:

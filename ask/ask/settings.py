@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 TEMPLATE_DIRS = (
 #    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
     "/home/box/web/ask/templates/"
+    #"templates/"
 )
 
 # Application definition

@@ -137,6 +137,17 @@ class RegisterFormView(FormView):
     success_url = "/"
     template_name = "register.html"
 
+    class Meta:
+            model = User
+            fields = ("username", "email", "password1", "password2")
+
+        def save(self, commit=True):
+            user = super(UserCreateForm, self).save(commit=False)
+            user.email = self.cleaned_data["email"]
+            if commit:
+                user.save()
+            return user
+
     def form_valid(self, form):
         form.save()
         return super(RegisterFormView, self).form_valid(form)

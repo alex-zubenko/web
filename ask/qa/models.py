@@ -10,6 +10,8 @@ class Question(models.Model):
 	likes = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING, related_name="question_likes")
 	def __unicode__(self):
 		return self.title
+	def get_url(self):
+		return '/question/%d/' % self.pk
 
 class Answer(models.Model):
 	added_at = models.DateField(null=True)

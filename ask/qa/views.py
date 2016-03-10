@@ -41,11 +41,10 @@ def popular(request, *args, **kwargs):
 def add_question(request):
     if request.method == "POST":
         form = AskForm(request.POST)
-        if form.is_valid():
-            post = form.save()
-            post.save()
-            #return HttpResponseRedirect(reverse('question', args=(post.id,)))
-            return HttpResponseRedirect('/question/3/')
+
+        post = form.save()
+        post.save()
+        return HttpResponseRedirect(reverse('question', args=(post.id,)))
     else:
         form = AskForm()
     return render(request, 'add_question.html', {'form': form})

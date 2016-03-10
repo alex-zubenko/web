@@ -5,8 +5,8 @@ from django.core.paginator import Paginator
 from qa.models import Question, Answer
 from django.http import HttpResponseRedirect
 from qa.forms import AskForm, AnswerForm
-#from django.views.decorators.csrf import csrf_protect
-#from django.core.context_processors import csrf
+from django.contrib.auth.models import User
+
 
 #def test(request, *args, **kwargs):
 #	return HttpResponse('OK')
@@ -69,3 +69,16 @@ def question(request, id):
 		'post':	post,
 		'answers': answers,
 	})
+
+def register(request, *args, **kwargs):
+	if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+        	user = form.save()
+        	return HttpResponseRedirect('/')
+    else:
+        form = AskForm()
+    return render(request, 'add_question.html', {'form': form})
+
+def login(request, *args, **kwargs):
+	return HttpResponse('OK')

@@ -11,3 +11,14 @@ class AnswerForm(ModelForm):
 	class Meta:
 		model = Answer
 		fields = ['text', 'question']
+
+class RegisterForm(ModelForm):
+	class Meta:
+		model = User
+		#fields = ['name', 'email', 'password']
+
+class LoginForm(ModelForm):
+	class Meta:
+		model = User
+		fields = ['name', 'password']
+

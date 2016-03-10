@@ -6,6 +6,7 @@ from qa.models import Question, Answer
 from django.http import HttpResponseRedirect
 from qa.forms import AskForm, AnswerForm
 from django.views.decorators.csrf import csrf_protect
+from django.core.context_processors import csrf
 
 #def test(request, *args, **kwargs):
 #	return HttpResponse('OK')

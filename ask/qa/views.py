@@ -96,8 +96,7 @@ def register(request):
 
     if request.method == 'POST':
         data = request.POST.copy()
-        errors = form.get_validation_errors(data)
-        if not errors:
+        if form.is_valid():
             new_user = form.save(data)
             return HttpResponseRedirect("/books/")
     else:

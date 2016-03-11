@@ -74,13 +74,13 @@ def question(request, id):
 	})
 
 
-def login(request):
+def do_login(request):
 	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
 		if user is not None and user.is_active:
-			auth.login(user)
+			auth.login(request, user)
 			return HttpResponseRedirect("/")
 		else:
 			return HttpResponseRedirect("/")

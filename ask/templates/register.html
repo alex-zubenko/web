@@ -1,35 +1,33 @@
 <h1>Регистрация пользователя</h1>
-  <form action="." method="post">
+  <form action="/signup/" method="post">
+  	{{ form.non_field_errors }}
   	{% csrf_token %}
     {% if form.error_dict %}
       <p class="error">Пожалуйста исправьте нижеприведённые ошибки.</p>
     {% endif %}
 
 		<div class="form-item">
-    {% if form.username.errors %}
+		{% if form.username.errors %}
       {{ form.username.html_error_list }}
     {% endif %}
     	<label for="id_username">Логин:</label> {{ form.username }}
     </div>
 
 		<div class="form-item">
-    {% if form.email.errors %}
-      {{ form.email.html_error_list }}
-    {% endif %}
-    	<label for="id_email">E-mail:</label> <input type="text" name="email" maxlength="30" id="id_email">
-    </div>
-
-		<div class="form-item">
-    {% if form.password.errors %}
+		 {% if form.password.errors %}
       {{ form.password.html_error_list }}
-    {% endif %}
-    <label for="id_password1">Пароль:</label> <input type="password" name="password" id="id_password1">
+    	{% endif %}
+    	<label for="id_email">E-mail:</label> {{ form.email }}
     </div>
 
 		<div class="form-item">
-    {% if form.password2.errors %}
-      {{ form.password2.html_error_list }}
-    {% endif %}
+		{% if form.password2.errors %}
+		  {{ form.password2.html_error_list }}
+		{% endif %}
+    <label for="id_password1">Пароль:</label> {{ form.password }}
+    </div>
+
+		<div class="form-item">
     <label for="id_password2">Пароль (снова):</label> {{ form.password2 }}
     </div>
 

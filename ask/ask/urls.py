@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-#from qa.views import test
 from qa.views import home, question, add_question, add_answer, login, popular, register
 
 admin.autodiscover()

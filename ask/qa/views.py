@@ -1,12 +1,14 @@
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.views.decorators.http import require_GET
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from qa.models import Question, Answer
 from django.http import HttpResponseRedirect
-from qa.forms import AskForm, AnswerForm, RegisterForm, LoginForm
+from qa.forms import AskForm, AnswerForm, UserForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django import forms
+from django.forms import ModelForm
 
 
 #def test(request, *args, **kwargs):
@@ -71,37 +73,37 @@ def question(request, id):
 		'answers': answers,
 	})
 
-from django.contrib import auth
 
 def login(request):
 	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']
-		user = auth.authenticate(username=username, password=password)
+		user = authenticate(username=username, password=password)
 		if user is not None and user.is_active:
-			auth.login(request, user)
+			auth.login(user)
 			return HttpResponseRedirect("/")
 		else:
 			return HttpResponseRedirect("/")
 	else:
 		return render(request, 'login.html', {})
 
+def register( request ):
+  user = User()
+  if request.method == "POST":
+    userForm = UserForm( request.POST )
+    if userForm.is_valid():
+      userData = userForm.cleaned_data
+      user.username = userData['username']
+      user.email = userData['email']
+      user.set_password( userData['password'] )
+      user.save()
+      user = authenticate( username = userData['username'], password = userData['password'] )
+      login(request, user)
+      return HttpResponseRedirect( "/" )
+  else:
+    userForm = UserForm()
+  return render( request, "register.html", { "user": user, "form": userForm } )
 
 
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
 
-def register(request):
-    form = UserCreationForm()
 
-    if request.method == 'POST':
-        data = request.POST.copy()
-        if form.is_valid():
-            new_user = form.save(data)
-            return HttpResponseRedirect("/books/")
-    else:
-        data, errors = {}, {}
-
-    return render(request, "register.html", {
-        'form' : form
-    })

@@ -13,6 +13,13 @@
     </div>
 
 		<div class="form-item">
+    {% if form.email.errors %}
+      {{ form.email.html_error_list }}
+    {% endif %}
+    	<label for="id_email">Логин:</label> {{ form.email }}
+    </div>
+
+		<div class="form-item">
     {% if form.password1.errors %}
       {{ form.password1.html_error_list }}
     {% endif %}

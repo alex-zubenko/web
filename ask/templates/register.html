@@ -20,10 +20,10 @@
     </div>
 
 		<div class="form-item">
-    {% if form.password1.errors %}
+    {% if form.password.errors %}
       {{ form.password.html_error_list }}
     {% endif %}
-    <label for="id_password1">Пароль:</label> {{ form.password1 }}
+    <label for="id_password1">Пароль:</label> <input type="password" name="password" id="id_password1">
     </div>
 
 		<div class="form-item">

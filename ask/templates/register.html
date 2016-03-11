@@ -1,5 +1,32 @@
-<form action="/signup/" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Зарегистрироваться</button>
-</form>
+<h1>Регистрация пользователя</h1>
+  <form action="." method="post">
+  	{% csrf_token %}
+    {% if form.error_dict %}
+      <p class="error">Пожалуйста исправьте нижеприведённые ошибки.</p>
+    {% endif %}
+
+		<div class="form-item">
+    {% if form.username.errors %}
+      {{ form.username.html_error_list }}
+    {% endif %}
+    	<label for="id_username">Логин:</label> {{ form.username }}
+    </div>
+
+		<div class="form-item">
+    {% if form.password1.errors %}
+      {{ form.password1.html_error_list }}
+    {% endif %}
+    <label for="id_password1">Пароль:</label> {{ form.password1 }}
+    </div>
+
+		<div class="form-item">
+    {% if form.password2.errors %}
+      {{ form.password2.html_error_list }}
+    {% endif %}
+    <label for="id_password2">Пароль (снова):</label> {{ form.password2 }}
+    </div>
+
+    <div class="form-item">
+    	<input type="submit" value="Зарегистрировать" />
+    </div>
+  </form>

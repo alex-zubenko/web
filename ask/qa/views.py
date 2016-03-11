@@ -71,77 +71,38 @@ def question(request, id):
 		'answers': answers,
 	})
 
-
-
-
-"""
-def register(request):
-    if request.method == 'POST':
-        user_form = RegisterForm(data=request.POST)
-        if user_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-            sessid = do_login(user.username,user.password)
-            if sessid:
-            	response = HttpResponseRedirect('/')
-            	response.set_cookie('sessid',sessid,
-            		domain="site.com", httponly=True,
-            		expires=datetime.now()+timedelta(days=5))
-            return response
-        else:
-            print user_form.errors
-    else:
-        user_form = RegisterForm()
-    return render( request, 'register.html', {'form': user_form})
+from django.contrib import auth
 
 def login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request)
-                return HttpResponseRedirect('/')
-            else:
-                return HttpResponse("Your account is disabled.")
-        else:
-            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
-    else:
-    	#form = LoginForm()
-        return render(request, 'login.html', {})
+	if request.method == 'POST':
+		username = request.POST['username']
+		password = request.POST['password']
+		user = auth.authenticate(username=username, password=password)
+		if user is not None and user.is_active:
+			auth.login(request, user)
+			return HttpResponseRedirect("/")
+		else:
+			return HttpResponseRedirect("/")
+	else:
+		return render(request, 'login.html', {})
 
-def do_login(login, password):
-	try:
-		user = User.objects.get(username=login)
-	except User.DoesNotExist:
-		return None
-	#hashed_pass = salt_and_hash(password)
-	#if user.password != hashed_pass:
-	#	return None
-	session = Session()
-	session.key = generate_longradom_key()
-	session.user = user
-	session.expires = datetime.now() + timedelta(days = 5)
-	session.save()
-	return session.key
-"""
 
-from django.views.generic.edit import FormView
-from django.contrib.auth.forms import UserCreationForm
+
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
-class RegisterFormView(UserCreationForm):
-	email = forms.EmailField(label = "Email")
-	fullname = forms.CharField(label = "Full name")
-	class Meta:
-		model = User
-		fields = ("username", "email", )
-	def save(self, commit=True):
-	        user = super(RegisterForm, self).save(commit=False)
-	        user.email = self.cleaned_data["email"]
-	        if commit:
-	            user.save()
-	        return user
+def register(request):
+    form = UserCreationForm()
+
+    if request.method == 'POST':
+        data = request.POST.copy()
+        errors = form.get_validation_errors(data)
+        if not errors:
+            new_user = form.save(data)
+            return HttpResponseRedirect("/books/")
+    else:
+        data, errors = {}, {}
+
+    return render(request, "register.html", {
+        'form' : form
+    })

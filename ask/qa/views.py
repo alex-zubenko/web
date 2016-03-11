@@ -80,10 +80,10 @@ def do_login(request):
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
 		if user is not None and user.is_active:
-			auth.login(request, user)
+			login(request, user)
 			return HttpResponseRedirect("/")
 		else:
-			return HttpResponseRedirect("/")
+			return render(request, 'login.html', {})
 	else:
 		return render(request, 'login.html', {})
 

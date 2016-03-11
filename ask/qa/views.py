@@ -10,10 +10,6 @@ from django.contrib.auth.models import User
 from django import forms
 from django.forms import ModelForm
 
-
-#def test(request, *args, **kwargs):
-#	return HttpResponse('OK')
-
 def home(request):
 	posts = Question.objects.order_by("-id")
 	limit = request.GET.get('limit', 10)
@@ -38,8 +34,6 @@ def popular(request, *args, **kwargs):
 		'posts':	page.object_list,
 		'paginator':	paginator, 'page': page,
 	})
-
-
 
 def add_question(request):
     if request.method == "POST":
@@ -105,7 +99,3 @@ def register( request ):
   else:
     userForm = UserForm()
   return render( request, "register.html", { "user": user, "form": userForm } )
-
-
-
-

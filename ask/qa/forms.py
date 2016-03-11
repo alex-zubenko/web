@@ -13,14 +13,7 @@ class AnswerForm(ModelForm):
 	class Meta:
 		model = Answer
 		fields = ['text', 'question']
-"""
-class RegisterForm(ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
 
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password', 'password2')
-"""
 class LoginForm(ModelForm):
 	class Meta:
 		model = User
@@ -31,9 +24,3 @@ class UserForm( forms.ModelForm ):
   class Meta:
   	model = User
   	fields = ('username', 'email', 'password')
-"""
-  def clean_pass2( self ):
-    if ( self.cleaned_data["password2"] != self.cleaned_data.get( "password", "") ):
-      raise forms.ValidationError( "Passwords do not match" )
-    return self.cleaned_data["password2"]
-"""

@@ -45,7 +45,9 @@ def add_question(request):
     if request.method == "POST":
         form = AskForm(request.POST)
         if form.is_valid():
-        	post = form.save()
+        	post = form.save(commit=False)
+        	post.author = request.user
+        	post.save()
         	url = post.get_url()
         	return HttpResponseRedirect(url)
     else:
